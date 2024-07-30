@@ -77,23 +77,63 @@ function afficherPointeSapin(n) {
 //Etape 2: Sapin à étages
 //Écrivons maintenant une fonction afficherSapin qui affichera les différents étages de sapin.
 
-function afficherSapin(etages, hauteur_etages) {
+//2.1 Afficher un étage
+//Changeons maintenant notre function afficherPointeSapin pour afficher n’importe quel étage du sapin ! Elle se nommera afficherEtage et prendra les paramètres suivant:
+
+function afficherEtage(hauteur, pointe_offset) {
   let star = "";
   let spaces = [];
   let etageArbre = [];
-  for (let i = 0; i < 2 * etages; i++) {
+  for (let i = 0 - pointe_offset; i < hauteur; i++) {
     spaces.push(" ");
   }
-  console.log(spaces.join("") + "+");
-  for (i = 0; i < etages; i++) {
-    for (let j = 0; j < hauteur_etages ; j++) {
-      spaces.pop();
-      etageArbre.push(spaces.join("") + "/" + star + "|" + star + "\\");
-      star += "*";
-    }
-    console.log(etageArbre.join("\n"));
-    etageArbre.splice(0,2);
+  etageArbre.push(spaces.join("") + "+");
+  for (let i = 0 - pointe_offset; i < hauteur; i++) {
+    spaces.pop();
+    etageArbre.push(spaces.join("") + "/" + star + "|" + star + "\\");
+    star += "*";
   }
+  toSplice = pointe_offset + 1;
+  etageArbre.splice(0, toSplice);
+  console.log(etageArbre.join("\n"));
 }
 
-afficherSapin(5, 3);
+//afficherEtage(3, 0);
+//afficherEtage(3, 1);
+//afficherEtage(3, 2);
+
+
+
+
+//2.2 Aligner les étages
+//Parce que la partie à aligner arrive en premier (les étages les plus hauts du sapin), il nous faut savoir en avance quel espacement 
+//sera nécessaire pour cet alignement. À partir de l’étape précédente, on peut voir qu’il aurait fallu 2 espacements au premier étage, et 
+//1 seul au deuxième.  Nous allons donc modifier notre fonction afficherEtage pour ajouter cet espacement:
+
+
+function afficherEtage2(hauteur, pointe_offset, espacement) {
+  let star = "";
+  let spaces = [];
+  let etageArbre = [];
+  for (let i = 0 - pointe_offset ; i < hauteur; i++) {
+    spaces.push(" ");
+    for(let j = i ; j < espacement ; j++){
+      spaces.push(" ")
+    }
+  }
+  etageArbre.push(spaces.join("") + "+");
+  for (let i = 0 - pointe_offset; i < hauteur; i++) {
+    spaces.pop();
+    etageArbre.push(spaces.join("") + "/" + star + "|" + star + "\\");
+    star += "*";
+  }
+  toSplice = pointe_offset + 1;
+  etageArbre.splice(0, toSplice);
+  console.log(etageArbre.join("\n"));
+}
+
+afficherEtage2(3, 0, 3)
+afficherEtage2(3, 1, 2)
+afficherEtage2(3, 2, 1)
+afficherEtage2(3, 3, 0)
+
